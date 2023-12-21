@@ -1,0 +1,24 @@
+.allCont{
+    display: grid;
+    gap: 10px;
+
+}
+
+.head{
+    /* width: 100%; */
+    /* padding: 15px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: /; */
+}
+
+.lineCont{
+    display: flex ;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.hrStyle{
+    width: 100%;
+}

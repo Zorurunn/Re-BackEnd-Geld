@@ -1,0 +1,57 @@
+/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/Css/lastRecord.module.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************/
+.lastRecord_allCont__37tdx{
+    display: grid;
+    gap: 10px;
+
+}
+
+.lastRecord_head__lQJPX{
+    /* width: 100%; */
+    /* padding: 15px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: /; */
+}
+
+.lastRecord_lineCont__SMxZB{
+    display: flex ;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.lastRecord_hrStyle__hGppE{
+    width: 100%;
+}
+/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/Css/page.module.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************/
+.page_grid3Cont__caUJy{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    height: 20%;
+}
+
+.page_gridSpanCont__Tnza0{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    height: 80%;
+
+}
+
+.page_box__uAL3s{
+    background-color: aqua;
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.page_boxSpan__NbXV1{
+    grid-column: 1 / span 2;
+    grid-row: 2 /span 2;
+}
+
+/* Last Records */
