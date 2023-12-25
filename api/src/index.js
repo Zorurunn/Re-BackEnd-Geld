@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -19,8 +20,9 @@ app.get("/test", (req, res) => {
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   if (email === "zoloo" && password === "a") {
+    const token = jwt.sign({ name: email }, "test");
     return res.json({
-      token: "123",
+      token: token,
     });
   }
 

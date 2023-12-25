@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export const Container = (props) => {
   return (
-    <div className={"w-screen relative  dark:text-[#D1D5DB]"}>
+    <div className={`${props.bg} w-screen relative  dark:text-[#D1D5DB]`}>
       <div
         className={"w-screen  overflow-hidden m-auto max-w-[1500px] px-[16px]"}
       >

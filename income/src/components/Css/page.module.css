@@ -2,26 +2,27 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    height: 20%;
+    height: 30%;
 }
 
 .gridSpanCont{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    height: 80%;
-
+    height: 70%;
 }
 
 .box{
     background-color: aqua;
-    border: 2px solid red;
     border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+    /* color:white; */
 }
 
 .boxSpan{
     grid-column: 1 / span 2;
-    grid-row: 2 /span 2;
+    /* grid-row: 2 /span 2; */
 }
 
 /* Last Records */

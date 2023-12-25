@@ -1,6 +1,7 @@
 .allCont{
     display: grid;
     gap: 10px;
+    background-color: white;
 
 }
 
