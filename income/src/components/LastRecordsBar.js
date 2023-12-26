@@ -52,7 +52,6 @@ export function LastRecordsBar(props) {
     },
   ]);
 
-  console.log(data.length);
   return (
     <div
       className={`${styles.allCont} `}

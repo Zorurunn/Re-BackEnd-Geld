@@ -1,12 +1,18 @@
 "use client";
 
+import { useSetDisplay } from "@/app/records/page";
+
 export default function RecordHeader() {
-  const showWindow = () => {};
+  const { setIsDisplay } = useSetDisplay();
+  const clicked = () => {
+    console.log(`clicked`);
+    setIsDisplay((prev) => !prev);
+  };
   return (
     <div className="w-full flex flex-col gap-[20px]">
       <div className="text-[24px]">Records</div>
       <button
-        onClick={showWindow}
+        onClick={clicked}
         className="w-full h-[30px] bg-[blue] text-white rounded-[20px]"
       >
         + Add

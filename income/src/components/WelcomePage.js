@@ -2,11 +2,12 @@ import Link from "next/link";
 import { VectorSvg } from "./SVG/VectorSvg";
 import { useState } from "react";
 import { useLayout } from "@/app/layout";
+import { useAuthZ } from "./providers/AuthProviderZ";
 
 export function WelcomePage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signIn } = useLayout();
+  const { signIn } = useAuthZ();
   return (
     <div className="h-full grid grid-cols-2 w-full">
       <div className="flex justify-center items-center ">

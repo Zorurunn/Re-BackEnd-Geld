@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
+import { AuthProvider } from "@/components/providers/AuthProvider";
+import { AuthProviderZ } from "@/components/providers/AuthProviderZ";
+import { Container } from "@/components/Container";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,18 +16,22 @@ export default function RootLayout({ children }) {
     {
       icon: "❤︎",
       category: "Food & Drink",
+      id: 0,
     },
     {
-      icon: "❤💡",
+      icon: "💡",
       category: "Electricity",
+      id: 1,
     },
     {
       icon: "💲",
       category: "Rent",
+      id: 2,
     },
     {
       icon: "👶",
       category: "Baby",
+      id: 3,
     },
   ]);
   const [cards, setCards] = useState([
@@ -105,11 +112,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LayoutContext.Provider
+        <AuthProviderZ>{children}</AuthProviderZ>
+        {/* <LayoutContext.Provider
           value={{ signIn, cards, setCards, categories, setCategories }}
         >
           {children}
-        </LayoutContext.Provider>
+        </LayoutContext.Provider> */}
       </body>
     </html>
   );

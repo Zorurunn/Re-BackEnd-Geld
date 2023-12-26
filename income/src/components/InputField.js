@@ -1,6 +1,9 @@
 import { useLayout } from "@/app/layout";
 import styles from "@/components/Css/input.module.css";
 import { useEffect, useState } from "react";
+import CategoryLine from "./inputComponents/CategoryLine";
+import { ChooseCategory } from "./inputComponents/ChooseCategory";
+import { useSetDisplay } from "@/app/records/page";
 
 const types = [
   {
@@ -9,7 +12,7 @@ const types = [
   },
   {
     label: "Income",
-    color: "#D1D5DB",
+    color: "#16A34A",
   },
 ];
 const dates = [
@@ -24,22 +27,38 @@ const dates = [
 ];
 
 export const InputField = () => {
-  const { categories, setCategories } = useLayout();
+  const { setIsDisplay } = useSetDisplay();
   const [color, setColor] = useState("Expense");
+  const [isHidden, setIshidden] = useState(false);
 
   const clicked = (e) => {
     const active = e.target.innerHTML;
     setColor(active);
   };
+  const submitted = (e) => {
+    e.preventDefault();
+    console.log(e.target);
+    setIsDisplay((prev) => !prev);
+  };
 
   return (
     <>
       <div className={styles.hidden}>
-        <form className="w-full flex justify-center items-center">
+        <form
+          className="w-full flex justify-center items-center"
+          onSubmit={submitted}
+        >
           <div className="w-[40%] flex flex-col justify-center items-center p-[20px]">
             <div className="w-full flex justify-between">
               <div>Add record</div>
-              <div>X</div>
+              <div
+                onClick={() => {
+                  setIsDisplay((prev) => !prev);
+                }}
+                className={`cursor-pointer`}
+              >
+                X
+              </div>
             </div>
             <hr />
 
@@ -54,7 +73,7 @@ export const InputField = () => {
                         className={`w-full bg-gray-50 rounded-[20px] cursor-pointer grow p-[10px]`}
                         style={{
                           background: `${
-                            color === item.label ? "#0166FF" : "#D1D5DB"
+                            color === item.label ? item.color : "#D1D5DB"
                           }`,
                         }}
                       >
@@ -73,16 +92,7 @@ export const InputField = () => {
                   />
                 </div>
 
-                <div className="w-full bg-gray-50" id="Category">
-                  <div>Category</div>
-                  <select className="w-full" name="categoryList">
-                    {categories.map((item) => {
-                      return (
-                        <option value={item.category}> {item.category} </option>
-                      );
-                    })}
-                  </select>
-                </div>
+                <ChooseCategory />
 
                 <div className="w-full h-fit flex bg-gray-300 rounded-[20px] gap-[20px]">
                   {dates.map((item, index) => {
@@ -106,6 +116,11 @@ export const InputField = () => {
 
                 <button
                   className="w-full bg-sky-400 rounded-[10px]"
+                  style={{
+                    background: `${
+                      color === "Expense" ? "#0166FF" : "#16A34A"
+                    }`,
+                  }}
                   type="submit"
                 >
                   Add record
@@ -125,7 +140,7 @@ export const InputField = () => {
                   <div className="w-full bg-gray-50 grow" id="Note">
                     <div>Note</div>
                     <textarea
-                      className="bg-gray-50"
+                      className="bg-gray-50 w-full"
                       placeholder={`note is here`}
                     />
                   </div>

@@ -10,8 +10,23 @@ import ExpenseCard from "@/components/ExpenseCard";
 import BarChar from "@/components/BarChar";
 import CircleChar from "@/components/CircleChar";
 import DashBoardHeader from "@/components/DashboardHeader";
+import { useAuthZ } from "@/components/providers/AuthProviderZ";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function DashBoard() {
+  const router = useRouter();
+
+  const { isLoggedIn } = useAuthZ();
+
+  useEffect(() => {
+    console.log(`dash`);
+    if (!isLoggedIn) {
+      router.push("/signIn");
+    }
+  }, [isLoggedIn]);
+  if (!isLoggedIn) return null;
+
   return (
     <Container bg={"bg-gray-100"}>
       <DashBoardHeader />

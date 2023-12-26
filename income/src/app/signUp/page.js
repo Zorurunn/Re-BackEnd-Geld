@@ -5,8 +5,13 @@ import Link from "next/link";
 import { useData } from "../layout";
 import { SignUpButton } from "@/components/SignUpButton";
 import { CreateSignUp } from "@/components/CreateSignUp";
+import { useState } from "react";
+import { useAuthZ } from "@/components/providers/AuthProviderZ";
 
-export default function CreateAccount() {
+export default function SignUp() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { signUp } = useAuthZ();
   // const { setIsHidden } = useData();
   return (
     <Container>
@@ -35,10 +40,12 @@ export default function CreateAccount() {
               <input
                 className="w-full rounded-[5px] h-[50px] pl-[10px]"
                 placeholder="Email"
+                value={email}
               />
               <input
                 className="w-full rounded-[5px] h-[50px] pl-[10px]"
                 placeholder="Password"
+                value={password}
               />
               <input
                 className="w-full rounded-[5px] h-[50px] pl-[10px]"
