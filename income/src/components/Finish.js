@@ -10,10 +10,12 @@ import { Container } from "@/components/Container";
 import { CoinSvg } from "@/components/SVG/CoinSvg";
 import { CheckSvg } from "@/components/SVG/CheckSvg";
 import { CreateSignUp } from "./CreateSignUp";
+import StepHeader from "./StepHeader";
 
 export default function Finish() {
   return (
     <>
+      <StepHeader />
       <div className="flex flex-col justify-center items-center gap-[10px] mb-[24px]">
         <CheckSvg />
         <div className="text-[24px]"> Good Job!</div>

@@ -31,32 +31,141 @@ app.get("/test", (req, res) => {
   res.send("testZp");
 });
 
-app.post("/sign-in", (req, res) => {
+app.post("/sign-in", async (req, res) => {
   const { email, password } = req.body;
-  if (email === "a" && password === "a") {
-    const token = jwt.sign({ name: email }, "test");
-    return res.json({
-      token: token,
+
+  const filePath = "src/data/users.json";
+
+  const usersRaw = await fs.readFile(filePath, "utf8");
+
+  const users = JSON.parse(usersRaw);
+
+  const user = users.find((user) => user.email === email);
+
+  if (!user) {
+    return res.status(401).json({
+      message: "Unauthorized",
     });
   }
 
-  res.status(401).send({
-    message: "Invalid credentials",
+  if (user.password !== password) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+
+  const token = jwt.sign({ email }, "secret-key", { expiresIn: "1h" });
+
+  res.json({
+    token,
   });
 });
 
-app.post("/sign-up", (req, res) => {
+app.post("/sign-up", async (req, res) => {
   const { email, password } = req.body;
-  if (email === "a" && password === "a") {
-    const token = jwt.sign({ name: email }, "test");
-    return res.json({
-      token: token,
+
+  const filePath = "src/data/users.json";
+
+  const usersRaw = await fs.readFile(filePath, "utf8");
+
+  const users = JSON.parse(usersRaw);
+
+  const user = users.find((user) => user.email === email);
+
+  if (user) {
+    return res.status(409).json({
+      message: "User already exists",
     });
   }
 
-  res.status(401).send({
-    message: "Invalid credentials",
+  const id = uuidv4();
+
+  users.push({
+    email,
+    password,
+    id,
   });
+
+  await fs.writeFile(filePath, JSON.stringify(users));
+
+  res.json({
+    message: "User created",
+  });
+});
+
+app.post("/records", async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Auth nashi",
+    });
+  }
+
+  try {
+    const payload = jwt.verify(authorization, "secret-key");
+
+    const { email } = payload;
+
+    const { type, category, amount } = req.body;
+
+    const filePath = "src/data/records.json";
+
+    const recordsRaw = await fs.readFile(filePath, "utf8");
+
+    const records = JSON.parse(recordsRaw);
+
+    records.push({
+      type,
+      category,
+      amount,
+      userEmail: email,
+    });
+
+    await fs.writeFile(filePath, JSON.stringify(records));
+
+    res.json({
+      message: "Record created",
+    });
+  } catch (err) {
+    return res.status(401).json({
+      message: "err",
+    });
+  }
+});
+
+app.get("/records", async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Auth nashi",
+    });
+  }
+
+  try {
+    const payload = jwt.verify(authorization, "secret-key");
+
+    const { email } = payload;
+
+    const filePath = "src/data/records.json";
+
+    const recordsRaw = await fs.readFile(filePath, "utf8");
+
+    const allrecords = JSON.parse(recordsRaw);
+
+    const userRecords = allrecords.filter(
+      (record) => record.userEmail === email
+    );
+
+    res.json({
+      records: userRecords,
+    });
+  } catch (err) {
+    return res.status(401).json({
+      message: "err",
+    });
+  }
 });
 
 app.get("/categories", (req, res) => {

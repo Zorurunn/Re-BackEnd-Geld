@@ -1,9 +1,9 @@
 import { useLayout } from "@/app/layout";
 import styles from "@/components/Css/input.module.css";
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import CategoryLine from "./inputComponents/CategoryLine";
 import { ChooseCategory } from "./inputComponents/ChooseCategory";
-import { useSetDisplay } from "@/app/records/page";
+import { useRecordData, useSetDisplay } from "@/app/records/page";
 
 const types = [
   {
@@ -26,10 +26,13 @@ const dates = [
   },
 ];
 
+const SelectedCat = createContext();
+
 export const InputField = () => {
-  const { setIsDisplay } = useSetDisplay();
+  const { setIsDisplay } = useRecordData();
   const [color, setColor] = useState("Expense");
   const [isHidden, setIshidden] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const clicked = (e) => {
     const active = e.target.innerHTML;
@@ -37,12 +40,24 @@ export const InputField = () => {
   };
   const submitted = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const { elements } = e.target;
+    console.log(selectedCategory);
+
+    // const title = e.target.elements.title.value;
+    // const description = event.target.elements.description.value;
+    // const status = event.target.elements.statusList.value;
+    // const priority = event.target.elements.priorityList.value;
+
     setIsDisplay((prev) => !prev);
   };
 
   return (
-    <>
+    <SelectedCat.Provider
+      value={{
+        selectedCategory,
+        setSelectedCategory,
+      }}
+    >
       <div className={styles.hidden}>
         <form
           className="w-full flex justify-center items-center"
@@ -83,9 +98,10 @@ export const InputField = () => {
                   })}
                 </div>
 
-                <div className="w-full bg-gray-50" id="Amount">
+                <div className="w-full bg-gray-50">
                   <div>Amount</div>
                   <input
+                    id="Amount"
                     className="bg-gray-50"
                     type="text"
                     placeholder={`000.00`}
@@ -97,7 +113,7 @@ export const InputField = () => {
                 <div className="w-full h-fit flex bg-gray-300 rounded-[20px] gap-[20px]">
                   {dates.map((item, index) => {
                     return (
-                      <div>
+                      <div key={index}>
                         <div>{item.label}</div>
                         <input
                           type="date"
@@ -150,10 +166,11 @@ export const InputField = () => {
           </div>
         </form>
       </div>
-    </>
+    </SelectedCat.Provider>
   );
 };
 
+export const useCategory = () => useContext(SelectedCat);
 {
   /* <form className={styles.addForm} onSubmit={props.getValue}>
           <h1 className="text-[60px] bg-green-500 rounded-[5px] col-span-2 ">

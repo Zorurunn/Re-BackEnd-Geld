@@ -9,17 +9,68 @@ import AmountRange from "@/components/recordComponents/AmountRange";
 import Category from "@/components/recordComponents/Category";
 import RecordHeader from "@/components/recordComponents/RecordHeader";
 import Types from "@/components/recordComponents/Types";
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 const SetIsDisplayContext = createContext();
 export default function Records() {
   const [isDisplay, setIsDisplay] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const getCategories = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:3002/categories",
+
+        {
+          headers: {
+            getCategories: "get categories",
+          },
+        }
+      );
+      setCategories(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const postCategories = async (icon, name) => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3002/categories",
+
+        {
+          icon,
+          name,
+          id: uuidv4(),
+        },
+        {
+          headers: {
+            getCategories: "get categories",
+          },
+        }
+      );
+      console.log(data);
+      setCategories(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
   return (
     <Container bg={"bg-gray-100"}>
       <SetIsDisplayContext.Provider
         value={{
           isDisplay,
           setIsDisplay,
+          categories,
+          setCategories,
         }}
       >
         {isDisplay && <InputField />}
@@ -41,4 +92,4 @@ export default function Records() {
   );
 }
 
-export const useSetDisplay = () => useContext(SetIsDisplayContext);
+export const useRecordData = () => useContext(SetIsDisplayContext);

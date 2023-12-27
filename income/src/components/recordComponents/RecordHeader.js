@@ -1,9 +1,9 @@
 "use client";
 
-import { useSetDisplay } from "@/app/records/page";
+import { useRecordData } from "@/app/records/page";
 
 export default function RecordHeader() {
-  const { setIsDisplay } = useSetDisplay();
+  const { setIsDisplay } = useRecordData();
   const clicked = () => {
     console.log(`clicked`);
     setIsDisplay((prev) => !prev);

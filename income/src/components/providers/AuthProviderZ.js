@@ -38,6 +38,26 @@ export const AuthProviderZ = ({ children }) => {
     router.push("/signIn");
   };
 
+  const signUp = async (email, password) => {
+    try {
+      const { data } = await api.post("/sign-up", {
+        email,
+        password,
+      });
+
+      const { token } = data;
+      console.log(token);
+
+      localStorage.setItem("token", token);
+
+      setIsLoggedIn(true);
+
+      router.push("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     console.log(`auth`);
     setIsReady(false);
@@ -56,6 +76,7 @@ export const AuthProviderZ = ({ children }) => {
       value={{
         signIn,
         signOut,
+        signUp,
         isLoggedIn,
       }}
     >

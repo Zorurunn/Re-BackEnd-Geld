@@ -9,10 +9,13 @@ import { ConfirmButton } from "@/components/ConfirmButton";
 import { Container } from "@/components/Container";
 import { CoinSvg } from "@/components/SVG/CoinSvg";
 import { CreateSignUp } from "./CreateSignUp";
+import StepHeader from "./StepHeader";
 
 export default function Balance() {
   return (
     <>
+      <StepHeader />
+
       <div className="flex flex-col justify-center items-center gap-[10px] mb-[24px]">
         <CoinSvg />
         <div className="text-[24px]"> Set up your cash Balance</div>
@@ -31,7 +34,7 @@ export default function Balance() {
         </div>
       </div>
 
-      <CreateSignUp href={"/setStep?step=3"} />
+      <CreateSignUp href={"/signUp?step=4"} />
     </>
   );
 }

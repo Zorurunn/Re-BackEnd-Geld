@@ -1,15 +1,17 @@
 "use client";
-import Link from "next/link";
-import { useState } from "react";
-import { useLayout } from "@/app/layout";
-import { VectorSvg } from "@/components/SVG/VectorSvg";
-import { useAuthZ } from "@/components/providers/AuthProviderZ";
 import { Container } from "@/components/Container";
+import { VectorSvg } from "@/components/SVG/VectorSvg";
+import Link from "next/link";
+import { useData } from "../layout";
+import { SignUpButton } from "@/components/SignUpButton";
+import { CreateSignUp } from "@/components/CreateSignUp";
+import { useState } from "react";
+import { useAuthZ } from "@/components/providers/AuthProviderZ";
 
-export default function SignIn() {
+export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signIn } = useAuthZ();
+  const { signUp } = useAuthZ();
   return (
     <Container>
       <div className="h-full grid grid-cols-2 w-full">
@@ -24,45 +26,44 @@ export default function SignIn() {
               </div>
             </div>
             <div className="flex  flex-col gap-[10px] justify-center items-center">
-              <div className="text-[24px]">Welcome Back</div>
+              <div className="text-[24px]">Create Geld account</div>
               <div className="text-[16px]  text-gray-500">
-                Welcome back, Please enter your details
+                Sign up below to create your Wallet account
               </div>
             </div>
             <div className="flex  flex-col gap-[10px] justify-center items-center">
               <input
                 className="w-full rounded-[5px] h-[50px] pl-[10px]"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                variant="outlined"
-                placeholder="Email"
+                placeholder="Name"
               />
               <input
                 className="w-full rounded-[5px] h-[50px] pl-[10px]"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                variant="outlined"
+                placeholder="Email"
+                value={email}
+              />
+              <input
+                className="w-full rounded-[5px] h-[50px] pl-[10px]"
                 placeholder="Password"
+                value={password}
+              />
+              <input
+                className="w-full rounded-[5px] h-[50px] pl-[10px]"
+                placeholder="Re-password"
               />
             </div>
             <div>
-              <button
-                className="btn btn-active btn-primary w-full text-white bg-sky-700 border-none"
-                onClick={() => {
-                  signIn(email, password);
-                }}
-              >
-                Log in
-              </button>
+              <CreateSignUp href={"/setStep?step=1"} />
             </div>
             <div className="flex gap-[10px] justify-center">
-              <div>Don’t have account?</div>
+              <div>Already have an account?</div>
+
               <div className="cursor-pointer text-[blue]">
-                <Link href={"/signUp?step=1"}> Sign up</Link>
+                <Link href={"/"}> Sign in</Link>
               </div>
             </div>
           </div>
         </div>
+
         <div className="bg-sky-700"></div>
       </div>
     </Container>

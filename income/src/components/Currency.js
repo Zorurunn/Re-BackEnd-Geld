@@ -8,10 +8,12 @@ import { MoneySvg } from "@/components/SVG/MoneySvg";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { Container } from "@/components/Container";
 import { CreateSignUp } from "./CreateSignUp";
+import StepHeader from "./StepHeader";
 
 export default function Currency() {
   return (
-    <>
+    <div>
+      <StepHeader />
       <div className="flex flex-col justify-center items-center gap-[10px] mb-[24px]">
         <MoneySvg />
         <div className="text-[24px]"> Select base currency</div>
@@ -34,8 +36,8 @@ export default function Currency() {
         </div>
       </div>
 
-      <CreateSignUp href={"/setStep?step=2"} />
-    </>
+      <CreateSignUp href={"/signUp?step=3"} />
+    </div>
   );
 }
 

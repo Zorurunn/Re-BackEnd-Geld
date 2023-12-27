@@ -1,4 +1,4 @@
-import { useStep } from "@/app/setStep/page";
+import { useStep } from "@/app/signUp/page";
 
 export default function Step() {
   const { step } = useStep();
@@ -11,11 +11,11 @@ export default function Step() {
 
       <div
         className={`relative w-[150px] h-[10px]`}
-        style={{ background: step == 2 || step == 3 ? "#0166ff" : "gray" }}
+        style={{ background: step == 3 || step == 4 ? "#0166ff" : "gray" }}
       ></div>
       <div
         className="w-6 h-6 top-[-50%] left-[50%] translate-y-[-5%] absolute  rounded-full z-10"
-        style={{ background: step == 2 || step == 3 ? "#0166ff" : "gray" }}
+        style={{ background: step == 3 || step == 4 ? "#0166ff" : "gray" }}
       ></div>
       <div className="w-6 h-6 top-[-60%] left-[52%]  absolute text-white z-20">
         2
@@ -23,11 +23,11 @@ export default function Step() {
 
       <div
         className={`relative w-[150px] h-[10px]`}
-        style={{ background: step == 3 ? "#0166ff" : "gray" }}
+        style={{ background: step == 4 ? "#0166ff" : "gray" }}
       ></div>
       <div
         className="w-6 h-6 top-[-50%] left-[95%] translate-y-[-5%] absolute  rounded-full z-10"
-        style={{ background: step == 3 ? "#0166ff" : "gray" }}
+        style={{ background: step == 4 ? "#0166ff" : "gray" }}
       ></div>
       <div className="w-6 h-6 top-[-60%] left-[97%]  absolute text-white z-20">
         3
