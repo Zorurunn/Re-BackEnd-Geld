@@ -8,11 +8,12 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useCategory } from "../InputField";
 import { useRecordData } from "@/app/records/page";
+import { useData } from "../providers/DataProvider";
 
 export function ChooseCategory() {
   const [isHidden, setIshidden] = useState(true);
   const { selectedCategory, setSelectedCategory } = useCategory();
-  const { categories } = useRecordData();
+  const { categories } = useData();
 
   const categoryClicked = (event) => {
     const x = categories.filter((item, index) => {

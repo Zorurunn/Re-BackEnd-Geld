@@ -6,6 +6,7 @@ import axios from "axios";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { AuthProviderZ } from "@/components/providers/AuthProviderZ";
 import { Container } from "@/components/Container";
+import { DataProvider } from "@/components/providers/DataProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -112,7 +113,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProviderZ>{children}</AuthProviderZ>
+        <AuthProviderZ>
+          <DataProvider>{children}</DataProvider>
+        </AuthProviderZ>
         {/* <LayoutContext.Provider
           value={{ signIn, cards, setCards, categories, setCategories }}
         >

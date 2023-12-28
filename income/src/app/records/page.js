@@ -5,10 +5,12 @@ import DashBoardHeader from "@/components/DashboardHeader";
 import { InputField } from "@/components/InputField";
 import Details from "@/components/detailsComponents/Details";
 import DetailsHeader from "@/components/detailsComponents/DetailsHeader";
+import { useData } from "@/components/providers/DataProvider";
 import AmountRange from "@/components/recordComponents/AmountRange";
 import Category from "@/components/recordComponents/Category";
 import RecordHeader from "@/components/recordComponents/RecordHeader";
 import Types from "@/components/recordComponents/Types";
+import axios from "axios";
 import {
   createContext,
   useCallback,
@@ -20,57 +22,14 @@ import {
 const SetIsDisplayContext = createContext();
 export default function Records() {
   const [isDisplay, setIsDisplay] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const getCategories = async () => {
-    try {
-      const { data } = await axios.get(
-        "http://localhost:3002/categories",
 
-        {
-          headers: {
-            getCategories: "get categories",
-          },
-        }
-      );
-      setCategories(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const postCategories = async (icon, name) => {
-    try {
-      const { data } = await axios.post(
-        "http://localhost:3002/categories",
-
-        {
-          icon,
-          name,
-          id: uuidv4(),
-        },
-        {
-          headers: {
-            getCategories: "get categories",
-          },
-        }
-      );
-      console.log(data);
-      setCategories(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getCategories();
-  }, []);
+  useEffect(() => {}, []);
   return (
     <Container bg={"bg-gray-100"}>
       <SetIsDisplayContext.Provider
         value={{
           isDisplay,
           setIsDisplay,
-          categories,
-          setCategories,
         }}
       >
         {isDisplay && <InputField />}

@@ -1,10 +1,10 @@
 "use client";
 
-export default function CategoryLine({ name, icon, id }) {
+export default function CategoryLine({ icon, category }) {
   return (
-    <div className="flex gap-[10px] p-[10px]" id={id}>
+    <div className="flex gap-[10px] p-[10px]">
       <div>{icon}</div>
-      <div>{name}</div>
+      <div>{category}</div>
     </div>
   );
 }

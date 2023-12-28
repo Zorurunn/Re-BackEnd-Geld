@@ -2,8 +2,10 @@ import { useState } from "react";
 import { LastRecordLine } from "./LastRecordLine";
 import { HomeSvg } from "./SVG/HomeSvg";
 import styles from "@/components/Css/lastRecord.module.css";
+import { useDashboardData } from "@/app/dashboard/page";
 
-export function LastRecordsBar(props) {
+export function LastRecordsBar() {
+  const { records } = useDashboardData();
   const [data, setData] = useState([
     {
       svg: <HomeSvg />,
@@ -64,9 +66,8 @@ export function LastRecordsBar(props) {
         <hr className="w-full" />
       </div>
 
-      {data.map((item, index) => {
-        item.id = index;
-        return <LastRecordLine key={index} {...item} />;
+      {records.map((item) => {
+        return <LastRecordLine key={item.id} {...item} />;
       })}
     </div>
   );

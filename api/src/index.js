@@ -107,7 +107,7 @@ app.post("/records", async (req, res) => {
 
     const { email } = payload;
 
-    const { type, category, amount } = req.body;
+    const { type, icon, category, date, amount, currency } = req.body;
 
     const filePath = "src/data/records.json";
 
@@ -117,8 +117,12 @@ app.post("/records", async (req, res) => {
 
     records.push({
       type,
+      icon,
       category,
+      date,
       amount,
+      currency,
+      id: uuidv4(),
       userEmail: email,
     });
 
@@ -168,8 +172,80 @@ app.get("/records", async (req, res) => {
   }
 });
 
-app.get("/categories", (req, res) => {
-  res.json(categories);
+// Category
+
+app.post("/categories", async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Auth nashi",
+    });
+  }
+
+  try {
+    const payload = jwt.verify(authorization, "secret-key");
+
+    const { email } = payload;
+
+    const { icon, category } = req.body;
+
+    const filePath = "src/data/categories.json";
+
+    const categoriesRaw = await fs.readFile(filePath, "utf8");
+
+    const categories = JSON.parse(categoriesRaw);
+
+    categories.push({
+      icon,
+      category,
+      userEmail: email,
+    });
+
+    await fs.writeFile(filePath, JSON.stringify(categories));
+
+    res.json({
+      message: "Category created",
+    });
+  } catch (err) {
+    return res.status(401).json({
+      message: "err",
+    });
+  }
+});
+
+app.get("/categories", async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Auth nashi",
+    });
+  }
+
+  try {
+    const payload = jwt.verify(authorization, "secret-key");
+
+    const { email } = payload;
+
+    const filePath = "src/data/categories.json";
+
+    const categoriesRaw = await fs.readFile(filePath, "utf8");
+
+    const allCategories = JSON.parse(categoriesRaw);
+
+    const userCategories = allCategories.filter(
+      (category) => category.userEmail === email
+    );
+
+    res.json({
+      categories: userCategories,
+    });
+  } catch (err) {
+    return res.status(401).json({
+      message: "err",
+    });
+  }
 });
 
 app.post("/categories", (req, res) => {

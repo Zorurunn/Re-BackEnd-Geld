@@ -4,6 +4,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import CategoryLine from "./inputComponents/CategoryLine";
 import { ChooseCategory } from "./inputComponents/ChooseCategory";
 import { useRecordData, useSetDisplay } from "@/app/records/page";
+import axios from "axios";
+import { useData } from "./providers/DataProvider";
 
 const types = [
   {
@@ -19,16 +21,19 @@ const dates = [
   {
     label: "Start Date",
     color: "#0166FF",
+    id: "startDate",
   },
   {
     label: "End Date",
     color: "#D1D5DB",
+    id: "endDate",
   },
 ];
 
 const SelectedCat = createContext();
 
 export const InputField = () => {
+  const { postRecord } = useData();
   const { setIsDisplay } = useRecordData();
   const [color, setColor] = useState("Expense");
   const [isHidden, setIshidden] = useState(false);
@@ -38,15 +43,31 @@ export const InputField = () => {
     const active = e.target.innerHTML;
     setColor(active);
   };
+
   const submitted = (e) => {
     e.preventDefault();
     const { elements } = e.target;
-    console.log(selectedCategory);
+    const type = "income";
+    const icon = selectedCategory.icon;
+    const category = selectedCategory.category;
+    const date = elements.startDate.value;
+    const amount = elements.amount.value;
+    const currency = "T";
+
+    // console.log(selectedCategory);
+    // console.log(`startDate: ${elements.startDate.value}`);
+    // console.log(`endDate: ${elements.endDate.value}`);
+    // console.log(`payee: ${elements.payee.value}`);
+    // console.log(`note: ${elements.note.value}`);
 
     // const title = e.target.elements.title.value;
     // const description = event.target.elements.description.value;
     // const status = event.target.elements.statusList.value;
     // const priority = event.target.elements.priorityList.value;
+
+    const token = localStorage.getItem("token");
+
+    postRecord(type, icon, category, date, amount, currency, token);
 
     setIsDisplay((prev) => !prev);
   };
@@ -101,7 +122,7 @@ export const InputField = () => {
                 <div className="w-full bg-gray-50">
                   <div>Amount</div>
                   <input
-                    id="Amount"
+                    id="amount"
                     className="bg-gray-50"
                     type="text"
                     placeholder={`000.00`}
@@ -116,6 +137,7 @@ export const InputField = () => {
                       <div key={index}>
                         <div>{item.label}</div>
                         <input
+                          id={item.id}
                           type="date"
                           key={index}
                           className={`w-full bg-gray-50 rounded-[20px] cursor-pointer grow p-[10px] border-[5px]`}
@@ -144,18 +166,20 @@ export const InputField = () => {
               </div>
               <div className={styles.gridBox}>
                 <div className="flex flex-col justify-between gap-[20px]">
-                  <div className="w-full bg-gray-50" id="Payee">
+                  <div className="w-full bg-gray-50">
                     <div>Payee</div>
                     <input
+                      id="payee"
                       className="bg-gray-50"
                       type="text"
                       placeholder={`000.00`}
                     />
                   </div>
 
-                  <div className="w-full bg-gray-50 grow" id="Note">
+                  <div className="w-full bg-gray-50 grow">
                     <div>Note</div>
                     <textarea
+                      id="note"
                       className="bg-gray-50 w-full"
                       placeholder={`note is here`}
                     />
