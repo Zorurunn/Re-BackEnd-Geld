@@ -8,9 +8,11 @@ const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const router = useRouter();
+  const [refresh, setRefresh] = useState(0);
   const [records, setRecords] = useState([]);
   const [categories, setCategories] = useState([]);
 
+  // GET Records
   const getRecords = async (token) => {
     try {
       const { data } = await axios.get(
@@ -22,11 +24,14 @@ export const DataProvider = ({ children }) => {
           },
         }
       );
+
       setRecords(data.records);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // GET Gategory
   const getCategories = async (token) => {
     try {
       const { data } = await axios.get(
@@ -43,6 +48,8 @@ export const DataProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  // POST Record
   const postRecord = async (
     type,
     icon,
@@ -70,18 +77,42 @@ export const DataProvider = ({ children }) => {
           },
         }
       );
-      setRecords(data);
+      console.log(data);
+      setRefresh((prev) => 1 - prev);
     } catch (error) {
       console.log(error);
     }
   };
 
+  // POST Category
+  const postCategory = async (icon, category, token) => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3002/categories",
+
+        {
+          icon,
+          category,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      setRefresh((prev) => 1 - prev);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // use Effect
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     getRecords(token);
     getCategories(token);
-  }, []);
+  }, [refresh]);
 
   return (
     <DataContext.Provider
@@ -92,9 +123,9 @@ export const DataProvider = ({ children }) => {
         setCategories,
         getRecords,
         postRecord,
+        postCategory,
       }}
     >
-      {console.log(records)}
       {children}
     </DataContext.Provider>
   );

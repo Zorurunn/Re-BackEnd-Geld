@@ -31,6 +31,7 @@ app.get("/test", (req, res) => {
   res.send("testZp");
 });
 
+// SIGN IN
 app.post("/sign-in", async (req, res) => {
   const { email, password } = req.body;
 
@@ -61,6 +62,7 @@ app.post("/sign-in", async (req, res) => {
   });
 });
 
+// SIGN UP
 app.post("/sign-up", async (req, res) => {
   const { email, password } = req.body;
 
@@ -93,6 +95,77 @@ app.post("/sign-up", async (req, res) => {
   });
 });
 
+// GET Records
+app.get("/records", async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Auth nashi",
+    });
+  }
+
+  try {
+    const payload = jwt.verify(authorization, "secret-key");
+
+    const { email } = payload;
+
+    const filePath = "src/data/records.json";
+
+    const recordsRaw = await fs.readFile(filePath, "utf8");
+
+    const allrecords = JSON.parse(recordsRaw);
+
+    const userRecords = allrecords.filter(
+      (record) => record.userEmail === email
+    );
+
+    res.json({
+      records: userRecords,
+    });
+  } catch (err) {
+    return res.status(401).json({
+      message: "err",
+    });
+  }
+});
+
+// GET Categories
+app.get("/categories", async (req, res) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Auth nashi",
+    });
+  }
+
+  try {
+    const payload = jwt.verify(authorization, "secret-key");
+
+    const { email } = payload;
+
+    const filePath = "src/data/categories.json";
+
+    const categoriesRaw = await fs.readFile(filePath, "utf8");
+
+    const allCategories = JSON.parse(categoriesRaw);
+
+    const userCategories = allCategories.filter(
+      (category) => category.userEmail === email
+    );
+
+    res.json({
+      categories: userCategories,
+    });
+  } catch (err) {
+    return res.status(401).json({
+      message: "err",
+    });
+  }
+});
+
+// POST Records
 app.post("/records", async (req, res) => {
   const { authorization } = req.headers;
 
@@ -138,42 +211,7 @@ app.post("/records", async (req, res) => {
   }
 });
 
-app.get("/records", async (req, res) => {
-  const { authorization } = req.headers;
-
-  if (!authorization) {
-    return res.status(401).json({
-      message: "Auth nashi",
-    });
-  }
-
-  try {
-    const payload = jwt.verify(authorization, "secret-key");
-
-    const { email } = payload;
-
-    const filePath = "src/data/records.json";
-
-    const recordsRaw = await fs.readFile(filePath, "utf8");
-
-    const allrecords = JSON.parse(recordsRaw);
-
-    const userRecords = allrecords.filter(
-      (record) => record.userEmail === email
-    );
-
-    res.json({
-      records: userRecords,
-    });
-  } catch (err) {
-    return res.status(401).json({
-      message: "err",
-    });
-  }
-});
-
-// Category
-
+// POST Category
 app.post("/categories", async (req, res) => {
   const { authorization } = req.headers;
 
@@ -214,47 +252,13 @@ app.post("/categories", async (req, res) => {
   }
 });
 
-app.get("/categories", async (req, res) => {
-  const { authorization } = req.headers;
+// app.post("/categories", (req, res) => {
+//   const { icon, name } = req.body;
 
-  if (!authorization) {
-    return res.status(401).json({
-      message: "Auth nashi",
-    });
-  }
+//   categories.push({ icon, name, id: uuidv4() });
 
-  try {
-    const payload = jwt.verify(authorization, "secret-key");
-
-    const { email } = payload;
-
-    const filePath = "src/data/categories.json";
-
-    const categoriesRaw = await fs.readFile(filePath, "utf8");
-
-    const allCategories = JSON.parse(categoriesRaw);
-
-    const userCategories = allCategories.filter(
-      (category) => category.userEmail === email
-    );
-
-    res.json({
-      categories: userCategories,
-    });
-  } catch (err) {
-    return res.status(401).json({
-      message: "err",
-    });
-  }
-});
-
-app.post("/categories", (req, res) => {
-  const { icon, name } = req.body;
-
-  categories.push({ icon, name, id: uuidv4() });
-
-  return res.json(categories);
-});
+//   return res.json(categories);
+// });
 
 const port = 3002;
 

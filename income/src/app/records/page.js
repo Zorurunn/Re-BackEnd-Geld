@@ -5,6 +5,7 @@ import DashBoardHeader from "@/components/DashboardHeader";
 import { InputField } from "@/components/InputField";
 import Details from "@/components/detailsComponents/Details";
 import DetailsHeader from "@/components/detailsComponents/DetailsHeader";
+import { AddCategory } from "@/components/inputComponents/AddCategory";
 import { useData } from "@/components/providers/DataProvider";
 import AmountRange from "@/components/recordComponents/AmountRange";
 import Category from "@/components/recordComponents/Category";
@@ -34,6 +35,7 @@ export default function Records() {
       >
         {isDisplay && <InputField />}
         <DashBoardHeader />
+        <AddCategory />
         <div className={recStyle.gridCont}>
           <div className={recStyle.gridCols}>
             <RecordHeader />

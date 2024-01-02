@@ -13,7 +13,7 @@ import { useData } from "../providers/DataProvider";
 export function ChooseCategory() {
   const [isHidden, setIshidden] = useState(true);
   const { selectedCategory, setSelectedCategory } = useCategory();
-  const { categories } = useData();
+  const { categories, postCategory } = useData();
 
   const categoryClicked = (event) => {
     const x = categories.filter((item, index) => {
@@ -26,7 +26,8 @@ export function ChooseCategory() {
   };
 
   const addCategory = (event) => {
-    postCategories("●", "Rents");
+    const token = localStorage.getItem("token");
+    postCategory("●", "Rents", token);
   };
 
   return (
