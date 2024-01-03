@@ -100,6 +100,8 @@ export const DataProvider = ({ children }) => {
           },
         }
       );
+      console.log(data);
+
       setRefresh((prev) => 1 - prev);
     } catch (error) {
       console.log(error);

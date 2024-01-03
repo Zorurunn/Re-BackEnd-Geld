@@ -13,6 +13,12 @@ import { useData } from "../providers/DataProvider";
 export function ChooseCategory() {
   const [isHidden, setIshidden] = useState(true);
   const { selectedCategory, setSelectedCategory } = useCategory();
+  const {
+    isDisplayAddCategory,
+    setIsDisplayAddCategory,
+    setVisiblityInputField,
+  } = useRecordData();
+
   const { categories, postCategory } = useData();
 
   const categoryClicked = (event) => {
@@ -49,17 +55,6 @@ export function ChooseCategory() {
           )}
         </div>
         <div>🔽</div>
-        {/* {selectedCategory === null ? (
-          <div
-            className="cursor-pointer flex  p-[10px] bg-gray-50"
-            style={{ justifyContent: "space-between" }}
-          >
-            <div>Find or Choose Category</div>
-            <div>🔽</div>
-          </div>
-        ) : (
-          <CategoryLine {...selectedCategory} />
-        )} */}
       </div>
       <div className="relative">
         <div
@@ -70,7 +65,11 @@ export function ChooseCategory() {
         >
           <div
             className="flex gap-[10px] p-[10px] cursor-pointer"
-            onClick={addCategory}
+            onClick={() => {
+              setIsDisplayAddCategory((prev) => !prev);
+              setIshidden((prev) => !prev);
+              setVisiblityInputField((prev) => !prev);
+            }}
           >
             <div>+</div>
             <div className="text-black"> Add Category</div>
@@ -92,22 +91,6 @@ export function ChooseCategory() {
           })}
         </div>
       </div>
-      {/* <select
-      className={styles.selectBox}
-      name="categoryList"
-      required
-    >
-      <option value="" selected disabled>
-        Choose or Find category
-      </option>
-      {categories.map((item, index) => {
-        return (
-          <option value={item.category}>
-            <CategoryLine key={index} {...item} />
-          </option>
-        );
-      })}
-    </select> */}
     </div>
   );
 }

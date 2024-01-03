@@ -1,4 +1,4 @@
-.hidden{
+/* .hidden{
     position: absolute;
     top: 0;
     left: 50%;
@@ -11,7 +11,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .gridCont{
     display: grid;

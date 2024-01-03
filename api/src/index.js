@@ -237,6 +237,7 @@ app.post("/categories", async (req, res) => {
     categories.push({
       icon,
       category,
+      id: uuidv4(),
       userEmail: email,
     });
 

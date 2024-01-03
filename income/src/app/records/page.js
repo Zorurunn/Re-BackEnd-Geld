@@ -22,20 +22,27 @@ import {
 
 const SetIsDisplayContext = createContext();
 export default function Records() {
-  const [isDisplay, setIsDisplay] = useState(false);
+  const [isDisplayInputField, setIsDisplayInputField] = useState(false);
+  const [isDisplayAddCategory, setIsDisplayAddCategory] = useState(false);
+  const [visiblityInputField, setVisiblityInputField] = useState(true);
 
   useEffect(() => {}, []);
   return (
     <Container bg={"bg-gray-100"}>
       <SetIsDisplayContext.Provider
         value={{
-          isDisplay,
-          setIsDisplay,
+          isDisplayInputField,
+          setIsDisplayInputField,
+          isDisplayAddCategory,
+          setIsDisplayAddCategory,
+          visiblityInputField,
+          setVisiblityInputField,
         }}
       >
-        {isDisplay && <InputField />}
+        {isDisplayInputField && <InputField />}
+        {isDisplayAddCategory && <AddCategory />}
+
         <DashBoardHeader />
-        <AddCategory />
         <div className={recStyle.gridCont}>
           <div className={recStyle.gridCols}>
             <RecordHeader />

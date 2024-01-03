@@ -34,7 +34,11 @@ const SelectedCat = createContext();
 
 export const InputField = () => {
   const { postRecord } = useData();
-  const { setIsDisplay } = useRecordData();
+  const {
+    setIsDisplayInputField,
+    visiblityInputField,
+    setVisiblityInputField,
+  } = useRecordData();
   const [color, setColor] = useState("Expense");
   const [isHidden, setIshidden] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -69,9 +73,13 @@ export const InputField = () => {
 
     postRecord(type, icon, category, date, amount, currency, token);
 
-    setIsDisplay((prev) => !prev);
+    setIsDisplayInputField((prev) => !prev);
   };
-
+  {
+    /* ${
+          visiblityInputField ? "visible" : "invisible"
+        } */
+  }
   return (
     <SelectedCat.Provider
       value={{
@@ -79,17 +87,21 @@ export const InputField = () => {
         setSelectedCategory,
       }}
     >
-      <div className={styles.hidden}>
+      <div
+        className={`fixed top-[0] left-[0]  z-[20] w-full h-full flex justify-center items-center bg-[#00000070] ${
+          visiblityInputField ? "visible" : "invisible"
+        } `}
+      >
         <form
-          className="w-full flex justify-center items-center"
+          className=" flex justify-center items-center bg-[#fff] rounded-[10px]"
           onSubmit={submitted}
         >
-          <div className="w-[40%] flex flex-col justify-center items-center p-[20px]">
+          <div className="w-full flex flex-col justify-center items-center p-[20px]">
             <div className="w-full flex justify-between">
               <div>Add record</div>
               <div
                 onClick={() => {
-                  setIsDisplay((prev) => !prev);
+                  setIsDisplayInputField((prev) => !prev);
                 }}
                 className={`cursor-pointer`}
               >
@@ -195,55 +207,3 @@ export const InputField = () => {
 };
 
 export const useCategory = () => useContext(SelectedCat);
-{
-  /* <form className={styles.addForm} onSubmit={props.getValue}>
-          <h1 className="text-[60px] bg-green-500 rounded-[5px] col-span-2 ">
-            Add New
-          </h1>
-
-          <div className="bg-green-500 rounded-[5px] pl-[10px]">title:</div>
-          <div>
-            <input id="title" type="text" />
-          </div>
-
-          <div className="bg-green-500 rounded-[5px] pl-[10px] h-fit">
-            description:
-          </div>
-          <div>
-            <textarea
-              id="description"
-              className={styles.description}
-            ></textarea>
-          </div>
-          <div className="bg-green-500 rounded-[5px] pl-[10px]">
-            <label htmlFor="status">Status:</label>
-          </div>
-          <div>
-            <select name="statusList">
-              <option value="toDo">To Do</option>
-              <option value="inProgress">In Progress</option>
-              <option value="stuck">Stuck</option>
-              <option value="done">Done</option>
-            </select>
-          </div>
-
-          <div className="bg-green-500 rounded-[5px] pl-[10px]">
-            <label htmlFor="priority">Priority:</label>
-          </div>
-          <div>
-            <select name="priorityList">
-              <option value="2">high</option>
-              <option value="1">medium</option>
-              <option value="0">low</option>
-            </select>
-          </div>
-          <div className="col-span-2">
-            <button
-              className="bg-green-500  rounded-[5px] w-full"
-              type="submit"
-            >
-              Add
-            </button>
-          </div>
-        </form> */
-}

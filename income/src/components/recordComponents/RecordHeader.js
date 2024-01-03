@@ -3,10 +3,9 @@
 import { useRecordData } from "@/app/records/page";
 
 export default function RecordHeader() {
-  const { setIsDisplay } = useRecordData();
+  const { setIsDisplayInputField } = useRecordData();
   const clicked = () => {
-    console.log(`clicked`);
-    setIsDisplay((prev) => !prev);
+    setIsDisplayInputField((prev) => !prev);
   };
   return (
     <div className="w-full flex flex-col gap-[20px]">
