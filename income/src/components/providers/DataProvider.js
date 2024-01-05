@@ -11,6 +11,7 @@ export const DataProvider = ({ children }) => {
   const [refresh, setRefresh] = useState(0);
   const [records, setRecords] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [hiddenCategories, setHiddenCategories] = useState([]);
 
   // GET Records
   const getRecords = async (token) => {
@@ -126,6 +127,8 @@ export const DataProvider = ({ children }) => {
         getRecords,
         postRecord,
         postCategory,
+        hiddenCategories,
+        setHiddenCategories,
       }}
     >
       {children}

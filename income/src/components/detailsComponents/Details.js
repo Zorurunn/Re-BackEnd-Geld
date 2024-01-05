@@ -7,6 +7,8 @@ import { useData } from "../providers/DataProvider";
 
 export default function Details() {
   const { records, setRecords } = useData();
+  const { hiddenCategories } = useData();
+
   // const [categories, setCategories] = useState([
   //   {
   //     icon: "❤︎",
@@ -94,10 +96,29 @@ export default function Details() {
       <div>
         <div>Today</div>
         <div className="flex flex-col gap-[10px]">
-          {records
-            .filter((item) => {
+          {/* .filter((item) => {
               return item;
               // item.date === " ";
+            }) */}
+          {records
+            .filter((el) => {
+              // return
+              const hiddencatname = hiddenCategories.filter(
+                (hiddenCategory) => {
+                  return el.category !== hiddenCategory;
+                  if (el.category === hiddenCategory) {
+                    // return hiddenCategory;
+                    // console.log(el.category, "ret false");
+                    return false;
+                  }
+                }
+              );
+
+              console.log(el.category, " nuusan ->", hiddencatname);
+              if (el.category === hiddencatname) {
+                console.log(el.category, "butsaa");
+              }
+              return true;
             })
             .map((item) => {
               return <DetailCard key={item.id} {...item} />;

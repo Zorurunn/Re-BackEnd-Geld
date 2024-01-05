@@ -6,8 +6,8 @@ import { useLayout } from "@/app/layout";
 import { useData } from "../providers/DataProvider";
 
 export default function Category() {
-  const { categories, setCategories } = useData();
-
+  const { categories, setCategories, hiddenCategories } = useData();
+  console.log(hiddenCategories);
   // const { cards, setCards } = useLayout();
   // const [categories, setCategories] = useState([
   //   {
