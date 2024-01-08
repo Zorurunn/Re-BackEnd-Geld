@@ -20,7 +20,9 @@ export default function DetailCard({
           <div>{date}</div>
         </div>
       </div>
-      <div>{amount}</div>
+      <div style={{ color: type === "Income" ? "#16A34A" : "#F54949" }}>
+        {type === "Income" ? "+" : "-"} {amount}
+      </div>
     </div>
   );
 }

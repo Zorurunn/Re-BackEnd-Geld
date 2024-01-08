@@ -39,35 +39,24 @@ export const InputField = () => {
     visiblityInputField,
     setVisiblityInputField,
   } = useRecordData();
-  const [color, setColor] = useState("Expense");
-  const [isHidden, setIshidden] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [geldType, setGeldType] = useState("Expense");
 
   const clicked = (e) => {
     const active = e.target.innerHTML;
-    setColor(active);
+    setGeldType(active);
   };
 
   const submitted = (e) => {
     e.preventDefault();
     const { elements } = e.target;
-    const type = "income";
+    const type = geldType;
     const icon = selectedCategory.icon;
     const category = selectedCategory.category;
-    const date = elements.startDate.value;
+    const date = elements.Date.value;
+    const time = elements.Time.value;
     const amount = elements.amount.value;
     const currency = "T";
-
-    // console.log(selectedCategory);
-    // console.log(`startDate: ${elements.startDate.value}`);
-    // console.log(`endDate: ${elements.endDate.value}`);
-    // console.log(`payee: ${elements.payee.value}`);
-    // console.log(`note: ${elements.note.value}`);
-
-    // const title = e.target.elements.title.value;
-    // const description = event.target.elements.description.value;
-    // const status = event.target.elements.statusList.value;
-    // const priority = event.target.elements.priorityList.value;
 
     const token = localStorage.getItem("token");
 
@@ -121,7 +110,7 @@ export const InputField = () => {
                         className={`w-full bg-gray-50 rounded-[20px] cursor-pointer grow p-[10px]`}
                         style={{
                           background: `${
-                            color === item.label ? item.color : "#D1D5DB"
+                            geldType === item.label ? item.color : "#D1D5DB"
                           }`,
                         }}
                       >
@@ -144,31 +133,29 @@ export const InputField = () => {
                 <ChooseCategory />
 
                 <div className="w-full h-fit flex bg-gray-300 rounded-[20px] gap-[20px]">
-                  {dates.map((item, index) => {
-                    return (
-                      <div key={index}>
-                        <div>{item.label}</div>
-                        <input
-                          id={item.id}
-                          type="date"
-                          key={index}
-                          className={`w-full bg-gray-50 rounded-[20px] cursor-pointer grow p-[10px] border-[5px]`}
-                          style={{
-                            background: `${
-                              color === item.label ? "#0166FF" : "#D1D5DB"
-                            }`,
-                          }}
-                        />
-                      </div>
-                    );
-                  })}
+                  <div>
+                    <div>Date</div>
+                    <input
+                      id="Date"
+                      type="date"
+                      className={`w-full bg-gray-50 rounded-[20px] cursor-pointer grow p-[10px] border-[5px]`}
+                    />
+                  </div>
+                  <div>
+                    <div>Time</div>
+                    <input
+                      id="Time"
+                      type="time"
+                      className={`w-full bg-gray-50 rounded-[20px] cursor-pointer grow p-[10px] border-[5px]`}
+                    />
+                  </div>
                 </div>
 
                 <button
                   className="w-full bg-sky-400 rounded-[10px]"
                   style={{
                     background: `${
-                      color === "Expense" ? "#0166FF" : "#16A34A"
+                      geldType === "Expense" ? "#0166FF" : "#16A34A"
                     }`,
                   }}
                   type="submit"

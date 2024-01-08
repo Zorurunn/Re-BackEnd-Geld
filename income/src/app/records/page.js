@@ -25,6 +25,10 @@ export default function Records() {
   const [isDisplayInputField, setIsDisplayInputField] = useState(false);
   const [isDisplayAddCategory, setIsDisplayAddCategory] = useState(false);
   const [visiblityInputField, setVisiblityInputField] = useState(true);
+  const [stateUpToDate, setStateUpToDate] = useState(0);
+  const [amountMax, setAmountMax] = useState(5000);
+  const [amountMin, setAmountMin] = useState(0);
+  const [amountValue, setAmountValue] = useState(1000);
 
   useEffect(() => {}, []);
   return (
@@ -37,6 +41,14 @@ export default function Records() {
           setIsDisplayAddCategory,
           visiblityInputField,
           setVisiblityInputField,
+          stateUpToDate,
+          setStateUpToDate,
+          amountMax,
+          setAmountMax,
+          amountMin,
+          setAmountMin,
+          amountValue,
+          setAmountValue,
         }}
       >
         {isDisplayInputField && <InputField />}

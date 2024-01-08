@@ -8,7 +8,7 @@ export default function RecordHeader() {
     setIsDisplayInputField((prev) => !prev);
   };
   return (
-    <div className="w-full flex flex-col gap-[20px]">
+    <div className="w-full flex flex-col gap-[20px] bg-[#E5E7EB]">
       <div className="text-[24px]">Records</div>
       <button
         onClick={clicked}

@@ -12,6 +12,7 @@ export const DataProvider = ({ children }) => {
   const [records, setRecords] = useState([]);
   const [categories, setCategories] = useState([]);
   const [hiddenCategories, setHiddenCategories] = useState([]);
+  const [displayType, setDisplayType] = useState("All");
 
   // GET Records
   const getRecords = async (token) => {
@@ -129,6 +130,8 @@ export const DataProvider = ({ children }) => {
         postCategory,
         hiddenCategories,
         setHiddenCategories,
+        displayType,
+        setDisplayType,
       }}
     >
       {children}

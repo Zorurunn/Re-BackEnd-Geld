@@ -180,7 +180,7 @@ app.post("/records", async (req, res) => {
 
     const { email } = payload;
 
-    const { type, icon, category, date, amount, currency } = req.body;
+    const { type, icon, category, date, time, amount, currency } = req.body;
 
     const filePath = "src/data/records.json";
 
@@ -193,6 +193,7 @@ app.post("/records", async (req, res) => {
       icon,
       category,
       date,
+      time,
       amount,
       currency,
       id: uuidv4(),

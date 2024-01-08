@@ -59,7 +59,6 @@ export const AuthProviderZ = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log(`auth`);
     setIsReady(false);
 
     const token = localStorage.getItem("token");
