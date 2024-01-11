@@ -4,9 +4,11 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const { v4: uuidv4 } = require("uuid");
+const { connectDatabase } = require("./dataBase");
 
 const app = express();
 
+connectDatabase();
 app.use(cors());
 app.use(bodyParser.json());
 

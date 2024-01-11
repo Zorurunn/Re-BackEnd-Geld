@@ -1,6 +1,7 @@
 "use client";
 import { ImCross } from "react-icons/im";
 import { useData } from "../providers/DataProvider";
+import * as myIcons from "react-icons/ai";
 import {
   AiFillAndroid,
   AiFillAlert,
@@ -24,23 +25,41 @@ import { useState } from "react";
 import { useRecordData } from "@/app/records/page";
 import { useCategory } from "../InputField";
 
-const iconsReact = [
-  <AiFillAndroid className="w-[30px] h-[30px]" />,
-  <AiFillAlert className="w-[30px] h-[30px]" />,
-  <AiFillAlipayCircle className="w-[30px] h-[30px]" />,
-  <AiFillAlipaySquare className="w-[30px] h-[30px]" />,
-  <AiFillAmazonSquare className="w-[30px] h-[30px]" />,
-  <AiFillApi className="w-[30px] h-[30px]" />,
-  <AiFillApple className="w-[30px] h-[30px]" />,
-  <AiFillAudio className="w-[30px] h-[30px]" />,
-  <AiFillBackward className="w-[30px] h-[30px]" />,
-  <AiFillBell className="w-[30px] h-[30px]" />,
-  <AiFillBook className="w-[30px] h-[30px]" />,
-  <AiFillAppstore className="w-[30px] h-[30px]" />,
-  <AiFillBank className="w-[30px] h-[30px]" />,
-  <AiFillBehanceSquare className="w-[30px] h-[30px]" />,
-  <AiFillBehanceCircle className="w-[30px] h-[30px]" />,
-  <AiFillAliwangwang className="w-[30px] h-[30px]" />,
+const defaultIcons = [
+  <myIcons.AiFillAmazonSquare className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillAccountBook className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillAlert className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillAliwangwang className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillApi className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillAmazonSquare className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillApple className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillAudio className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillHome className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillBackward className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillAppstore className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillAndroid className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillAudio className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillApi className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillBehanceSquare className="w-[30px] h-[30px] " />,
+  <myIcons.AiFillHome className="w-[30px] h-[30px] " />,
+];
+const sendIcons = [
+  "AiFillAmazonSquare",
+  "AiFillAccountBook",
+  "AiFillAlert",
+  "AiFillAliwangwang",
+  "AiFillApi",
+  "AiFillAmazonSquare",
+  "AiFillApple",
+  "AiFillAudio",
+  "AiFillHome",
+  "AiFillBackward",
+  "AiFillAppstore",
+  "AiFillAndroid",
+  "AiFillAudio",
+  "AiFillApi",
+  "AiFillBehanceSquare",
+  "AiFillHome",
 ];
 
 const icons = ["❤︎", "👶", "🍰", "🌸", "🖥", "📴", "🐕", "😸", "🏠"];
@@ -73,12 +92,16 @@ export function AddCategory() {
 
     setIsDisplayAddCategory((prev) => !prev);
   };
+
+  const Icon = myIcons["AiFillAccountBook"];
+
   return (
     <div className="fixed top-[0] left-[0]  z-[20] w-full h-full flex justify-center items-center bg-[#00000070]">
       <div className="w-[500px] h-[200px] rounded-[12px] bg-[#fff] flex flex-col justify-between p-[16px]">
         <div className="flex justify-between items-center">
           <div className="text-[20px]">Add Category</div>
           <ImCross />
+          <Icon />
         </div>
 
         <form
@@ -103,7 +126,8 @@ export function AddCategory() {
                   }}
                 >
                   <div className="grid grid-cols-4 gap-[20px]">
-                    {icons.map((item, index) => {
+                    {sendIcons.map((item, index) => {
+                      const Iconed = myIcons[`${item}`];
                       return (
                         <div
                           key={index}
@@ -113,7 +137,7 @@ export function AddCategory() {
                           }}
                           className={`cursor-pointer`}
                         >
-                          {item}
+                          <Iconed className="w-[30px] h-[30px] " />
                         </div>
                       );
                     })}

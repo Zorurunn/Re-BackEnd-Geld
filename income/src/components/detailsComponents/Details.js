@@ -34,10 +34,11 @@ export default function Details() {
         <div>100</div>
       </div>
       <div>
-        {stateUpToDate === 0 ? (
+        {stateUpToDate === "1" ? (
           <div className="flex flex-col gap-[30px]">
             <div>
               <div>Today</div>
+
               <div className="flex flex-col gap-[10px]">
                 {records
                   .filter((item) => {
